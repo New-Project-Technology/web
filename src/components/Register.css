@@ -1,0 +1,96 @@
+.Register {
+    background-color: rgb(180, 180, 180);
+    border: 5px groove darkgrey;
+    height:100%;
+    width:auto;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Nanum Gothic', sans-serif;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.Register-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+.Register-img a{
+    width: 200px;
+    height: 150px;
+    line-height: 150px;
+    text-align: center;
+    border: 2px groove black;
+}
+
+.Register-img button {
+    margin-top: 10px;
+    height: 30px;
+    width: 80px;
+    background-color: rgba(0,0,0,0);
+    border: 1px solid darkblue;
+    color: darkblue; 
+    padding: 5px;
+    border-radius: 5px 5px 5px 5px;
+    transition-property: "background-color";
+    transition-duration: 0.3s;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.Register-img button:hover { 
+    color:white;
+    background-color: darkblue; 
+    outline: none;
+}
+
+.Register-input {
+    width: 200px;
+}
+
+.Register-input form {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.Register-input label {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: right;
+}
+
+.Register-input input {
+    width: 130px;
+}
+
+.Register-input button {
+    margin-top: 10px;
+    height: 30px;
+    width: 80px;
+    background-color: rgba(0,0,0,0);
+    border: 1px solid darkblue;
+    color: darkblue; 
+    padding: 5px;
+    border-radius: 5px 5px 5px 5px;
+    transition-property: "background-color";
+    transition-duration: 0.3s;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.Register-input button:hover{
+    color:white;
+    background-color: darkblue; 
+    outline: none;
+}

@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
     height: 100%;
     width: 100%;
@@ -15,15 +14,15 @@
     align-items: center;
     justify-content: center;
 
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     margin-bottom: 15vh;
 }
 
-.Home a {
+.Home p {
     font-size: 3rem;
     font-weight: bold;
-    color: white;
+    color: black;
     font-family: 'Cinzel', serif;
     padding: 15px 0 15px 0;
 }

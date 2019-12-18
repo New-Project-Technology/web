@@ -32,7 +32,6 @@ module.exports = (upload) => {
             });
 
             let logs = JSON.parse(newJson);
-            console.log(logs);
 
             res.json(logs);
         })
@@ -41,34 +40,36 @@ module.exports = (upload) => {
     router.post('/register', upload.array('files', 20), (req, res) => {
 
         const files = req.files;
-
         const s3 = new AWS.S3();
 
         for (let i = 0; i < files.length; i++) {
 
             let file = files[i];
-            let filename = file.name;
+            let filename = file.originalname;
 
             const params = {
-                Bucket: 'new-technology-project',
-                Key: 'users/' + filename,
+                Bucket: 'fave-test',
+                Key: 'users/' + req.body.userName + '/'+ filename,
                 ACL : 'public-read',
-                Body: file,
+                Body: file.buffer,
                 ContentType: 'image/png'
             }
 
-            s3.upload(params, (err, data) => {
-                if(err) {
-                    console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
-                    return res.status(404);
-                }
-                else {
-                    return res.json({
-                        success: true
-                    })
+            s3.putObject(params, (err, data) => {
+                if (i === files.length - 1) {
+                    if (!err) {
+                        return res.json({
+                            success: true
+                        })
+                    } else {
+                        console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
+                        return res.status(404);
+                    }
                 }
             })
         }
+
+
     })
 
     return router;

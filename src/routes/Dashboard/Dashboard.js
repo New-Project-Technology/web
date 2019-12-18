@@ -34,7 +34,6 @@ class Dashboard extends Component {
     }
 
     _renderMovies = () => {
-        console.log("Asdfasd");
         const logs = this.state.logs.map(log => {
             return <Log
                 name={log.name}

@@ -17,10 +17,10 @@
     user-select: none;
     /* Likely future */
 }
-a.logo {
+p.logo {
     color: #5B5B5B;
 }
-a {
+p {
     cursor: pointer;
 }
 .auth .card {
@@ -47,7 +47,12 @@ a {
 .auth .btn {
     width: 90%;
 }
+
 .auth .footer {
     border-top: 1px solid #E9E9E9;
     padding-bottom: 21px;
+}
+
+.files .btn {
+    width: 70px;
 }

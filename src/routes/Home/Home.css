@@ -24,5 +24,6 @@
     font-weight: bold;
     color: black;
     font-family: 'Cinzel', serif;
-    padding: 15px 0 15px 0;
+    padding: 15px 0;
+    margin: 0;
 }

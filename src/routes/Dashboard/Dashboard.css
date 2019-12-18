@@ -1,7 +1,5 @@
 .Dashboard {
-    background-color: rgb(180, 180, 180);
-    border: 5px groove darkgrey;
-    height:100%;
+    height:auto;
     width:auto;
     z-index: 2;
     display: flex;

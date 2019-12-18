@@ -6,6 +6,8 @@ import './Register.css';
 import Authentication from "../../components/Authentication/Authentication";
 import {registerRequest} from "../../redux/actions/authentication";
 
+import M from 'materialize-css';
+
 class Register extends Component {
 
     constructor(props) {
@@ -14,11 +16,14 @@ class Register extends Component {
         this.handleRegister = this.handleRegister.bind(this);
     }
 
-    handleRegister(id, pw) {
-        return this.props.registerRequest(id, pw).then(
+    handleRegister(name, age, files) {
+        return this.props.registerRequest(name, age, files).then(
             () => {
                 if(this.props.status === 'SUCCESS') {
-                    this.props.history.push('/login');
+
+                    M.toast({html:'User "' + name + '" has been registered!'}, 2000);
+
+                    this.props.history.push('/');
                     return true;
                 }
                 else {
@@ -28,11 +33,17 @@ class Register extends Component {
                             2: BAD PASSWORD
                             3: USERNAME EXISTS
                      */
+
+                    /*
                     let errorMessage = [
                         'Invalid Username',
                         'Password is too short',
                         'Username already exists'
                     ];
+                    */
+
+                    let toastContent = '<span style="color: #FFB4BA">Register Failed...</span>';
+                    M.toast({html: toastContent}, 2000);
 
                     return false;
                 }
@@ -58,8 +69,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        registerRequest: (id, pw) => {
-            return dispatch(registerRequest(id, pw));
+        registerRequest: (name, age, files) => {
+            return dispatch(registerRequest(name, age, files));
         }
     };
 }

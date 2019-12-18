@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const multer = require('multer');
 
 const app = express();
+const upload = multer();
 
-const api = require('./routes/index');
+const api = require('./routes/register')(upload);
 const auth = require('./routes/auth');
 
 app.use(session({
@@ -14,6 +16,7 @@ app.use(session({
 }));
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api', api);
 app.use('/auth', auth);
 

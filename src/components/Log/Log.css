@@ -1,0 +1,5 @@
+.collection-item list{
+    display: flex !important;
+    justify-content: space-evenly;
+    align-items: center;
+}

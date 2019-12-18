@@ -11,10 +11,13 @@ class Authentication extends Component {
         this.state = {
             userId: '',
             userPW: '',
-            userName: ''
+            userName: '',
+            userAge: 0,
+            files: null
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleFiles = this.handleFiles.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         this.handleRegister = this.handleRegister.bind(this);
     }
@@ -22,6 +25,12 @@ class Authentication extends Component {
     handleChange(e) {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
+        this.setState(nextState);
+    }
+
+    handleFiles(e) {
+        let nextState = {};
+        nextState[e.target.name] = e.target.files;
         this.setState(nextState);
     }
 
@@ -42,23 +51,23 @@ class Authentication extends Component {
     }
 
     handleRegister() {
-        let userId = this.state.userId;
-        let userPW = this.state.password;
+        let userName = this.state.userName;
+        let userAge = this.state.userAge;
+        let files = this.state.files;
 
-        this.props.onRegister(userId, userPW).then(
+        this.props.onRegister(userName, userAge, files).then(
             (result) => {
-                if(!result) {
-                    this.setState({
-                        userId: '',
-                        userPW: ''
-                    })
-                }
+                this.setState({
+                    userName: '',
+                    userAge: 0,
+                    files: null
+                });
             }
         )
     }
 
     handleKeyPress = (e) => {
-        if (e.charCode==13) {
+        if (e.charCode===13) {
             if (this.props.mode) {
                 this.handleLogin();
             }
@@ -83,7 +92,7 @@ class Authentication extends Component {
                                 <input className="validate" type="password" name="userPW" onChange={this.handleChange} value={this.state.userPW} onKeyPress={this.handleKeyPress}  required/>
                             </div>
                         </div>
-                        <a className="waves-effect waves-light btn" onClick={this.handleLogin}>LOGIN</a>
+                        <p className="waves-effect waves-light btn" onClick={this.handleLogin}>LOGIN</p>
                     </div>
                 </div>
             </div>
@@ -95,20 +104,27 @@ class Authentication extends Component {
             <div className="card-content">
                 <div className="row">
                     <div>
-                        <div className="input-field col s12 userId">
-                            <label >ID </label>
-                            <input className="validate" type="text" name="userId" onChange={this.handleChange} required/>
+                        <div className="input-field col s12 userName">
+                            <label >Name </label>
+                            <input className="validate" type="text" name="userName" onChange={this.handleChange} required/>
                         </div>
                         <div className="input-field col s12">
-                            <label>Password </label>
-                            <input className="validate" type="password" name="userPW" onChange={this.handleChange} required/>
+                            <label>Age </label>
+                            <input className="validate" type="text" name="userAge" onChange={this.handleChange} required/>
                         </div>
                         <div className="input-field col s12">
-                            <label>Name </label>
-                            <input className="validate" type="text" name="userPW" onChange={this.handleChange} required/>
+                            <div className="file-field input-field files">
+                                <div className="waves-effect waves-teal btn-flat btn">
+                                    <span>File</span>
+                                    <input type="file" name="files" multiple onChange={this.handleFiles}/>
+                                </div>
+                                <div className="file-path-wrapper">
+                                    <input className="file-path validate" type="text" placeholder="Upload 20 photos of your face" required/>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <a className="waves-effect waves-light btn" onClick={this.handleRegister}>CREATE</a>
+                    <p className="waves-effect waves-light btn" onClick={this.handleRegister}>REGISTER</p>
                 </div>
             </div>
         );

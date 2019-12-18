@@ -1,23 +1,60 @@
-import React from 'react';
+import React, {Component} from 'react';
+import axios from 'axios';
+
+import Log from '../../components/Log/Log';
 
 import './Dashboard.css';
 
-import Header from '../../components/Header/Header';
+class Dashboard extends Component {
 
-const Dashboard = () => {   
-    return (
-        <div className="Dashboard">
-            <Header/>
-            <div className="Dashboard-column">
-                <p>일일 출입자 수 graph</p>
-                <p>월간 출입자 수 graph</p>
+    state = {
+
+    }
+
+    componentDidMount() {
+        this._getLogs();
+    }
+
+    _getLogs = async() => {
+        const logs = await this._callServer();
+
+        this.setState({
+            logs
+        })
+    }
+
+    _callServer = () => {
+        return axios.get('/api/getLogs')
+            .then((json) => {
+                return json.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    _renderMovies = () => {
+        console.log("Asdfasd");
+        const logs = this.state.logs.map(log => {
+            return <Log
+                name={log.name}
+                timestamp={log.in_time}
+                success={log.success}
+            />
+        })
+
+        return logs;
+    }
+
+    render() {
+        return (
+            <div className="Dashboard">
+                <ul className="collection">
+                    {this.state.logs ? this._renderMovies() : undefined}
+                </ul>
             </div>
-            <div className="Dashboard-column">
-                <p>일일 가입자 수 graph</p>
-                <p>월간 가입자 수 graph</p>
-            </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default Dashboard;

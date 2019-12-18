@@ -15,13 +15,11 @@ class Header extends Component {
 
         if (con.style.opacity === '0') {
             img.src = 'list_close.svg';
-            img.style.opacity = '0.3';
 
             con.style.opacity = '1';
         }
         else {
             img.src = 'list.svg';
-            img.style.opacity = '0.5';
 
             con.style.opacity = '0';
         }
@@ -59,7 +57,7 @@ class Header extends Component {
         const dashboardButton = (
             <li>
                 <Link className="Header-Link" to="/Dashboard">
-                    DASHBOARD
+                    LOGS
                 </Link>
             </li>
         )

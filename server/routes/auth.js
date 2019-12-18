@@ -1,34 +1,58 @@
 const express = require('express');
+const AWS = require('aws-sdk');
+const Key = require('../keys/aws_key');
+
 const router = express.Router();
 
-const users = {'test': '1234', 'test2': '1234'};
+AWS.config.update({
+    region: "ap-northeast-2",
+    accessKeyId: Key.AWSAccessKeyId,
+    secretAccessKey: Key.AWSSecretKey
+})
 
 router.post('/login', (req, res) => {
 
-    if (req.body.userId in users) {
-        if (users[req.body.userId] === req.body.userPW) {
-            let session = req.session;
-            session.loginInfo = {
-                _id: req.body.userId,
-            };
+    const faveClient = new AWS.DynamoDB.DocumentClient();
+    const table = "fave_user";
 
-            return res.json({
-                success: true
-            })
+    const params = {
+        TableName: table,
+        Key: {
+            "userID": req.body.userId
         }
-        else {
-            return res.status(401).json({
-                error: "PASSWORD IS NOT CORRECT",
-                code: 3
-            });
+    };
+
+    faveClient.get(params, (err, data) => {
+        if (err) {
+            console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
+            return res.status(404);
+        } else {
+            if (Object.keys(data).length === 0) {
+                return res.status(401).json({
+                    error: "THERE IS NO USER",
+                    code: 2
+                });
+            }
+
+            if (data.Item.password === req.body.userPW) {
+                let session = req.session;
+                session.loginInfo = {
+                    _id: data.Item.userID,
+                    name: data.Item.name,
+                    age: data.Item.age
+                };
+
+                return res.json({
+                    success: true
+                })
+            } else {
+                return res.status(401).json({
+                    error: "PASSWORD IS NOT CORRECT",
+                    code: 3
+                });
+            }
         }
-    }
-    else {
-        return res.status(401).json({
-            error: "THERE IS NO USER",
-            code: 2
-        });
-    }
+    })
 
 });
 

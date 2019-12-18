@@ -50,15 +50,29 @@ export function loginFailure() {
     };
 }
 
-export function registerRequest(userId, userPW) {
+export function registerRequest(userName, userAge, files) {
     return (dispatch) => {
         dispatch(register());
 
-        return axios.post('/api/register', {userId, userPW})
+        const formData = new FormData(this);
+        formData.append('userName', userName);
+        formData.append('userAge', userAge);
+
+        for (let i = 0; i < files.length; i++) {
+            formData.append('files', files[i]);
+        }
+
+        return axios.post('/api/register', formData, {
+            headers: {
+                'Content-Type' : 'multipart/form-data'
+            }
+        })
             .then((response) => {
+                console.log(response);
                 dispatch(registerSuccess());
             })
             .catch((error) => {
+                console.log(error);
                 dispatch(registerFailure(error));
             })
     };

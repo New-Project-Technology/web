@@ -48,7 +48,7 @@ module.exports = (upload) => {
             let filename = file.originalname;
 
             const params = {
-                Bucket: 'fave-test',
+                Bucket: 'new-technology-project',
                 Key: 'users/' + req.body.userName + '/'+ filename,
                 ACL : 'public-read',
                 Body: file.buffer,
